@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="normal/base::layout(~{::section})">
+<head>
+
+<meta charset="UTF-8" />
+<title>This is Home page</title>
+</head>
+<body>
+	<section>
+		<div class="container-fluid">
+			<div class="row">
+				<!-- side bar start -->
+				<th:block th:include="normal/side_bar :: side_bar"></th:block>
+				<!-- side bar start -->
+				<div class="col-md-9 mt-2">
+				<div class="row bg-light text-primary">
+					<div class=" bg-light">
+						<h4 > Add Product <i class="fa fa-plus"></i></h4>
+					</div>
+				</div>
+					<div class="card">
+					
+						<div class="card-body mt-5">
+							<form>
+							   <div class="container-fluid">
+									<div class="row">
+										<div class="col-md-5">
+												Product Code
+												<input type="text" readonly="readonly" class="form-control bg-light" name="productCode" id="productCode" placeholder="Add Product Code" />
+										</div>
+										<div class="col-md-5">
+											    Batch No
+												<input type="text" class="form-control" name="batchno" id="batchno" placeholder="Add Batch No" />
+										</div>
+										
+									</div>
+									<div class="row mt-2">
+										<div class="col-md-5">
+												  Category
+												<select class="form-control">
+										        <option>Select</option>
+		     	                              <option  th:each="A:${reportSubCategory}" th:text="${A.catagoryname}" th:value="${A.catagoryname}" id="catagoryname" name="catagoryname" />
+										</select>
+										</div>
+										<div class="col-md-5">
+												 Sub Category
+												<select class="form-control">
+													 <option>Select</option>
+					                                 <option  th:each="A:${reportSubCategory}" th:text="${A.subcatagoryname}" th:value="${A.subcatagoryname}" id="subcatagoryname" name="subcatagoryname" />
+												</select> 
+										</div>
+										
+									</div>
+									<div class="row mt-2">
+										<div class="col-md-5">
+											Sub Sub Category
+												<select class="form-control">
+													 <option>Select</option>
+					                                 <option  th:each="A:${SubsubCategoryService}" th:text="${A.subsubcatagoryname}" th:value="${A.subsubcatagoryname}" id="subsubcatagoryname" name="subsubcatagoryname" />
+												</select> 
+										</div>
+										<div class="col-md-5">
+												Product Name
+												<input type="text" class="form-control" name="productname" id="productname" placeholder="Add Catagory" />
+										</div>
+										
+									</div>
+									<div class="row mt-2">
+										<div class="col-md-5">
+												Supplier Name
+												<input type="text" class="form-control" name="suppliername" id="suppliername" placeholder="Add Catagory" />
+										</div>
+										<div class="col-md-5">
+												Mobile No
+												<input type="text" class="form-control" name="mobileno" id="mobileno" placeholder="Add Catagory" />
+										</div>
+										
+									</div>
+									<div class="row mt-2">
+									<div class="col-md-5">
+												Manufacturer Name
+												<input type="text" class="form-control" name="manufacturername" id="manufacturername" placeholder="Manufacturer Name" />
+										</div>
+										<div class="col-md-5">
+												Manufacturer Rate
+												<input type="text" class="form-control"  name="manufacturerrate" id="manufacturerrate" placeholder="Manufacturer Rate" />
+										</div>
+										
+										
+										
+									</div>
+									<div class="row mt-2">
+									<div class="col-md-5">
+											Product GST(%)
+												<input type="text" th:onkeyup="cal_mrp_salerate()" class="form-control" name="productgst" id="productgst" placeholder="Product GST(%)" />
+										</div>
+										 <div class="col-md-5">
+												Product Sale Rate
+												<input type="text" class="form-control" name="productsalerate" id="productsalerate" placeholder="Product Sale Rate" />
+										</div>
+										
+										
+										
+									</div>
+									<div class="row mt-2">
+									   <div class="col-md-5">
+												Product MRP
+												<input type="text" readonly="readonly" class="form-control bg-light" name="productmrp" id="productmrp" placeholder="Product MRP" />
+										</div>
+										<div class="col-md-5">
+												Product Quantity
+												<input type="text" th:onkeyup="cal_quantity()" class="form-control" name="productquantity" id="productquantity" placeholder="Product Quantity" />
+										</div>
+										
+										
+									</div>
+									<div class="row mt-2">
+										<div class="col-md-5">
+												Product HSN Code
+												<input type="text" class="form-control" name="producthsncode" id="producthsncode" placeholder="Product HSN Code" />
+										</div>
+										<div class="col-md-5">
+											Manufacture Date
+												<input type="date" class="form-control" name="manufacturedate" id="manufacturedate" placeholder="Manufacture Date" />
+										</div>
+										
+									</div>
+									<div class="row mt-2">
+										<div class="col-md-5">
+												Expiry Date
+												<input type="date" class="form-control" name="expirydate" id="expirydate" placeholder="Add Catagory" />
+										</div>
+									<div class="col-md-5">
+												<div class="row mt-4">
+														<div class="col-md-5 mt-1 ml-1">
+														Total Price =
+														</div>
+														<div class="col-md-5">
+																<input type="text" style="border:none;" class="form-control" name="totalprice" id="totalprice" placeholder="0" />
+														</div>
+												</div>
+												
+										</div>
+										
+									</div>
+									<div class="row mt-5">
+										<div class="col-md-4">
+												 
+										</div>
+										<div class="col-md-1">
+											<button type="button" th:onclick="addcatagory()" class="btn btn-success" name="addUnit" id="addUnit"><b>Submit</b></button>	
+									   </div>
+									   <div class="col-md-4 ml-1">
+									   <button type="button"  class="btn btn-warning text-light" name="Reset" id="Reset"> <b>Reset </b></button>
+											
+									   </div>
+									</div>
+								</div>
+								
+							</form>
+							
+							
+
+
+						</div>
+					</div>
+					<div class="card mt-2">
+					
+						</div>	
+				</div>
+			</div>
+			<br><br>
+		</div>
+<script>
+	function addcatagory()
+	{
+		
+		var productCode = document.getElementById("productCode").value;
+	    var batchno = document.getElementById("batchno").value;
+	    var catagoryname = document.getElementById("catagoryname").value;
+	    var subcatagoryname = document.getElementById("subcatagoryname").value;
+	    var subsubcatagoryname = document.getElementById("subsubcatagoryname").value;
+	    var productname = document.getElementById("productname").value;
+	    var suppliername = document.getElementById("suppliername").value;
+	    var mobileno = document.getElementById("mobileno").value;
+	    var manufacturername = document.getElementById("manufacturername").value;
+	    var manufacturerrate = document.getElementById("manufacturerrate").value;
+	    var productmrp = document.getElementById("productmrp").value;
+	    var productsalerate = document.getElementById("productsalerate").value;
+	    var productquantity = document.getElementById("productquantity").value;
+	    var productgst = document.getElementById("productgst").value;
+	    var producthsncode = document.getElementById("producthsncode").value;
+	    var manufacturedate = document.getElementById("manufacturedate").value;
+	    var expirydate = document.getElementById("expirydate").value;
+	    var totalprice = document.getElementById("totalprice").value;
+	    
+		$.ajax({
+			  type: "POST",
+			  url: "newproductadd",
+			  data:{productCode:productCode,batchno:batchno,catagoryname:catagoryname,subcatagoryname:subcatagoryname,subsubcatagoryname:subsubcatagoryname,productname:productname,
+				  suppliername:suppliername,mobileno:mobileno,manufacturername:manufacturername,manufacturerrate:manufacturerrate,
+				  productmrp:productmrp,productsalerate:productsalerate,productquantity:productquantity,productgst:productgst,
+				  producthsncode:producthsncode,manufacturedate:manufacturedate,expirydate:expirydate,totalprice:totalprice},
+		      success: function(data){
+             alert("Product have Added");
+             location.reload();
+		     },
+			  error: function (data) {
+				   alert(data);
+	                console.log('An error occurred.');
+	                console.log(data);
+	            },
+			});
+		
+	}
+	
+	function cal_mrp_salerate()
+	{
+		  var manufacturerrate = document.getElementById("manufacturerrate").value;
+		  var productgst = document.getElementById("productgst").value;
+		  var productgst=parseInt(productgst); 
+		  var manufacturerrate=parseInt(manufacturerrate);
+		  var cal_mrp_salerate=manufacturerrate*productgst;
+		  var cal_rate=cal_mrp_salerate/100;
+		
+		   t_salerate= manufacturerrate+cal_rate;
+		 
+		   document.getElementById("productsalerate").value = t_salerate;
+		   var mrp_cal1=parseInt(t_salerate)*50/100;
+		    var mrp_cal=mrp_cal1+t_salerate;
+		   document.getElementById("productmrp").value=mrp_cal;
+		   
+		  
+	}
+	function cal_quantity()
+	{
+		 var productsalerate = document.getElementById("productsalerate").value;
+		  var productquantity = document.getElementById("productquantity").value;
+		  var total_price=parseInt(productsalerate)*parseInt(productquantity);
+		  
+		   document.getElementById("totalprice").value=total_price;
+	}
+	
+	var nextSerialNumber = function(serialNumber) {
+	    return (parseInt(serialNumber, 36) + 1).toString(36).replace(
+	      /i/g,'j').replace(/o/g, 'p').replace(/0/g, '1').toUpperCase();
+	}
+
+	nextSerialNumber("99Z") //=> "9A1"
+	nextSerialNumber("11D") //=> "11E"
+</script>
+		<script>
+        $(document).ready(() => {
+          $(".item").removeClass("active");
+          $("#home-link").addClass("active");
+        });
+      </script>
+		<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+		<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+    <script type="text/javascript">
+    function ExportToExcel(type, fn, dl) {
+        var elt = document.getElementById('myTable');
+        rows = elt.rows;
+		
+        for (var i = 0; i < rows[0].cells.length; i++) {
+            var str = rows[0].cells[i].innerHTML;
+            if (str.search("Delete") != -1) {
+                for (var j = 0; j < rows.length; j++) {
+                    rows[j].deleteCell(i);
+                }
+               
+            }
+           
+        }
+        
+        
+        for (var p = 0; p < rows[0].cells.length; p++) {
+            var str1 = rows[0].cells[p].innerHTML;
+           
+                if (str1.search("Edit") != -1) {
+                    for (var j = 0; j < rows.length; j++) {
+                        rows[j].deleteCell(p);
+                    }
+                }
+            }
+        
+           
+
+        var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+        return dl ?
+          XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
+          XLSX.writeFile(wb, fn || ('ProjectMaster.' + (type || 'xlsx')));
+          location.reload();
+     }
+</script>
+
+<script>
+		/* let x = Math.floor((Math.random() * 10000) + 1);
+		var productCode=document.getElementById("productCode").value ="SHA"+x+"SHI"; */
+		
+		
+		let r = (Math.random() + 1).toString(36).substring(7);
+		var productCode=document.getElementById("productCode").value =r;
+		/* console.log("random", r); */
+</script>
+	</section>
+	
+</body>
+</html>

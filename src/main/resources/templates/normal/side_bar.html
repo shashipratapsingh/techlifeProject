@@ -1,0 +1,65 @@
+<div th:fragment="side_bar">
+
+         <div class="col-md-3" style="background-color: #1F45FC">
+							<div class="card col-md-8 text-center mt-2" style="margin-left:40px;">
+								<i class="fa fa-home fa-lg mt-1  text-danger">DashBoard</i><br>
+							</div>
+
+							<div class="row mt-2 ">
+								<div class="sidebar bg-primary">
+									<div class="site-width">
+
+										<!-- START: Menu-->
+										<ul id="side-menu" class="sidebar-menu text-light">
+										 <i class="fa fa-university text-light mt-2"> Profile Management</i>
+										 <ul class="sub-menu">
+												<a class="text-light" th:href="@{/user/companyProfile}"><li class="mt-2 fa fa-user-circle"> Company Profile</li></a>
+												   </a>
+											</ul>
+											<i class="fa fa-university text-light mt-2">Categories Management</i> 
+											<ul class="sub-menu">
+												<a class="text-light" th:href="@{/user/addcatogory}"><li class="mt-2 fa fa-user-circle"> Add Product Category</li></a>
+												   <a class="text-light" th:href="@{/user/Subcatogory}"><li class="mt-2 fa fa-window-maximize"> Sub Categories</li></a>
+												    <a class="text-light" th:href="@{/user/SubSubcatogory}"><li class="mt-2 fa fa-window-maximize">Sub-Sub Categories</li></a>
+											</ul>
+												<i class="fa fa-cube text-light"> Product Management</i>
+											
+												<ul class="sub-menu">
+
+													<a class="text-light" th:href="@{/user/addnewproduct}"><i class="fa fa-square mt-2"> Add New Product</i></a>
+													<i class="fa fa-street-view mt-2"> Product Report</i></br>
+													<i class="fa fa-tree mt-2"> Order Approve</i>
+												</ul>
+												 <i class="fa fa-cube text-light"> Product Management</i>
+													<ul class="sub-menu">
+														<i class="fa fa-umbrella"> upload Profile</i>
+														<i class="fa fa-universal-access"> Upload Documents</i>
+														<i class="fa fa-window-restore"> Report Product Photoes</i>
+													
+													</ul> 
+												<br>
+												<br>
+												<br>
+												<br>
+												<br>
+												<br>
+												<br>
+												<br>
+												<br>
+												<br>
+												<br>
+												<br>
+										</ul>
+										</li>
+
+										</ul>
+										<!-- END: Menu-->
+
+									</div>
+								</div>
+								<!-- END: Main Menu-->
+							</div>
+						</div>
+						
+					
+				</div>

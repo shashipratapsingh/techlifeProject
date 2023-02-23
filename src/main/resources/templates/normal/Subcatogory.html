@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="normal/base::layout(~{::section})">
+<head>
+
+<meta charset="UTF-8" />
+<title>This is Home page</title>
+</head>
+<body>
+	<section>
+		<div class="container-fluid">
+			<div class="row">
+				<!-- side bar start -->
+				<th:block th:include="normal/side_bar :: side_bar"></th:block>
+				<!-- side bar start -->
+				
+				<div class="col-md-8 mt-2">
+				<h3 class=""> Sub Category</h3>
+					<div class="card">
+						<div class="card-body my-5">
+							<form>
+							
+								<div class="container-fluid">
+									<div class="row">
+										<div class="col-md-6">
+										Add Category 
+										 <select class="form-control">
+										 <option>Select</option>
+		     	<option  th:each="A:${addcatagoryEntity}" th:text="${A.addCatagory}" th:value="${A.addCatagory}" id="catagoryname" name="catagoryname" />
+										</select> 
+										
+										</div>
+									<div class="col-md-6">
+											Sub Category <input type="text" class="form-control" name="subcatagoryname" id="subcatagoryname" placeholder="subCatagory" />	
+									   </div> 
+									</div>
+									<div class="row mt-5">
+										<div class="col-md-4">
+												
+										</div>
+										<div class="col-md-3">
+											<button type="button" onclick="subcatagory()" class="btn btn-success">Add sub catagory</button>	
+									   </div>
+									   <div class="col-md-4">
+									   <button type="button"  class="btn btn-warning text-white" name="Reset" id="Reset"> Reset </button>
+											
+									   </div>
+									</div>
+								</div>
+								
+							</form>
+
+
+						</div>
+					</div>
+					
+					
+					<div class="card mt-2">
+					<div class="container">
+								<div class="row">
+								<button class="btn" onclick="ExportToExcel('xlsx')">Export table to excel</button>
+									<div class="col-md-12">
+										<table class="table table-responsive" id="myTable">
+											<thead>
+												<th>Sr.</th>
+												<th> Category</th>
+												<th> sub Category</th>
+											</thead>
+											<tbody>
+											<tr th:each="A: ${reportSubCategory}">
+												<td th:text="${A.id}"></td>
+												<td th:text="${A.catagoryname}"></td>
+												<td th:text="${A.subcatagoryname}"></td>
+												
+											</tr>
+											</tbody>
+										</table>
+										
+									</div>
+								</div>
+								
+							</div>
+						</div>	
+				</div>
+			</div>
+		</div>
+<script>
+	function subcatagory()
+	{
+		
+		var catagoryname = document.getElementById("catagoryname").value;
+		var subcatagoryname = document.getElementById("subcatagoryname").value;
+		
+		$.ajax({
+			  type: "POST",
+			  url: "Addsubcatagory",
+			  data:{catagoryname:catagoryname,subcatagoryname:subcatagoryname},
+		      success: function(data){
+             alert("Succesfully Add sub catagory");
+             location.reload();
+		     },
+			  error: function (data) {
+				   alert(data);
+	                console.log('An error occurred.');
+	                console.log(data);
+	            },
+			});
+		
+	}
+</script>
+		<script>
+        $(document).ready(() => {
+          $(".item").removeClass("active");
+          $("#home-link").addClass("active");
+        });
+      </script>
+		<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+	</section>
+</body>
+</html>

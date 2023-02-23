@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="normal/base::layout(~{::section})">
+<head>
+
+<meta charset="UTF-8" />
+<title>This is Home page</title>
+</head>
+<body>
+	<section>
+		<div class="container-fluid">
+			<div class="row">
+				<!-- side bar start -->
+				<th:block th:include="normal/side_bar :: side_bar"></th:block>
+				<!-- side bar start -->
+				<div class="col-md-9 mt-2">
+				<div class="row bg-light text-primary">
+					<div class=" bg-light">
+						<h4 > Company Profile <i class="fa fa-plus"></i></h4>
+					</div>
+				</div>
+					<div class="card">
+					
+						<div class="card-body mt-5">
+							<form>
+							   <div class="container-fluid">
+									<div class="row">
+										<div class="col-md-5">
+												Company' Name
+												<input type="text" class="form-control" name="companyname" id="companyname" placeholder="Add Catagory" />
+										</div>
+										<div class="col-md-5">
+												Branch Address
+												<input type="text" class="form-control" name="branchaddress" id="branchaddress" placeholder="Add Catagory" />
+										</div>
+										
+									</div>
+									<div class="row mt-2">
+										<div class="col-md-5">
+												City
+												<input type="text" class="form-control" name="city" id="city" placeholder="Add Catagory" />
+										</div>
+										<div class="col-md-5">
+												District
+												<input type="text" class="form-control" name="district" id="district" placeholder="Add Catagory" />
+										</div>
+										
+									</div>
+									<div class="row mt-2">
+										<div class="col-md-5">
+												Pin code
+												<input type="text" class="form-control" name="pincode" id="pincode" placeholder="Add Catagory" />
+										</div>
+										<div class="col-md-5">
+												States
+												<input type="text" class="form-control" name="states" id="states" placeholder="Add Catagory" />
+										</div>
+										
+									</div>
+									<div class="row mt-2">
+										<div class="col-md-5">
+												Mobile No
+												<input type="text" class="form-control" name="mobileno" id="mobileno" placeholder="Add Catagory" />
+										</div>
+										<div class="col-md-5">
+												Lendline No
+												<input type="text" class="form-control" name="lendlineno" id="lendlineno" placeholder="Add Catagory" />
+										</div>
+										
+									</div>
+									<div class="row mt-5">
+										<div class="col-md-4">
+												 
+										</div>
+										<div class="col-md-1">
+											<button type="button" th:onclick="addcatagory()" class="btn btn-success" name="addUnit" id="addUnit"><b>Submit</b></button>	
+									   </div>
+									   <div class="col-md-4 ml-1">
+									   <button type="button"  class="btn btn-warning text-light" name="Reset" id="Reset"> <b>Reset </b></button>
+											
+									   </div>
+									</div>
+								</div>
+								
+							</form>
+							
+							
+
+
+						</div>
+					</div>
+					<div class="card mt-2">
+					
+						</div>	
+				</div>
+			</div>
+			<br><br>
+		</div>
+<script>
+	function addcatagory()
+	{
+		
+		var companyname = document.getElementById("companyname").value;
+	    var branchaddress = document.getElementById("branchaddress").value;
+	    var city = document.getElementById("city").value;
+	    var district = document.getElementById("district").value;
+	    var pincode = document.getElementById("pincode").value;
+	    var states = document.getElementById("states").value;
+	    var mobileno = document.getElementById("mobileno").value;
+	    var lendlineno = document.getElementById("lendlineno").value;
+		alert(lendlineno);
+		$.ajax({
+			  type: "POST",
+			  url: "companyprofile",
+			  data:{companyname:companyname,branchaddress:branchaddress,city:city,district:district,pincode:pincode,states:states,mobileno:mobileno,lendlineno:lendlineno},
+		      success: function(data){
+             alert("You have succesfully ");
+             location.reload();
+		     },
+			  error: function (data) {
+				   alert(data);
+	                console.log('An error occurred.');
+	                console.log(data);
+	            },
+			});
+		
+	}
+</script>
+		<script>
+        $(document).ready(() => {
+          $(".item").removeClass("active");
+          $("#home-link").addClass("active");
+        });
+      </script>
+		<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+		<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+    <script type="text/javascript">
+    function ExportToExcel(type, fn, dl) {
+        var elt = document.getElementById('myTable');
+        rows = elt.rows;
+		
+        for (var i = 0; i < rows[0].cells.length; i++) {
+            var str = rows[0].cells[i].innerHTML;
+            if (str.search("Delete") != -1) {
+                for (var j = 0; j < rows.length; j++) {
+                    rows[j].deleteCell(i);
+                }
+               
+            }
+           
+        }
+        
+        
+        for (var p = 0; p < rows[0].cells.length; p++) {
+            var str1 = rows[0].cells[p].innerHTML;
+           
+                if (str1.search("Edit") != -1) {
+                    for (var j = 0; j < rows.length; j++) {
+                        rows[j].deleteCell(p);
+                    }
+                }
+            }
+        
+           
+
+        var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+        return dl ?
+          XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
+          XLSX.writeFile(wb, fn || ('ProjectMaster.' + (type || 'xlsx')));
+          location.reload();
+     }
+</script>
+	</section>
+	
+</body>
+</html>

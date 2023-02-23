@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>This is Home page</title>
+</head>
+<body>
+	<section>
+		<div class="container-fluid">
+			<div class="row">
+				<!-- side bar start -->
+				<th:block th:include="normal/side_bar :: side_bar"></th:block>
+				<!-- side bar start -->
+				<div class="col-md-7 mt-3">
+					<div class="card">
+						<div class="card-body">
+							<div class="container text-center">
+								<img src="" style="height: 300px; width: 500px"
+									class="my_profile_picture" th:src="@{'../img/download.jpg'}"
+									alt="profile photo" />
+							</div>
+     <h1 class="text-center mt-3 text-secondary font-italic font-weight-light">
+								Start Adding your contact on cloud...</h1>
+ 	
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+        $(document).ready(() => {
+          $(".item").removeClass("active");
+          $("#home-link").addClass("active");
+        });
+      </script>
+		<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+	</section>
+</body>
+</html>

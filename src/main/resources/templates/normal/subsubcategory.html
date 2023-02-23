@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="normal/base::layout(~{::section})">
+<head>
+
+<meta charset="UTF-8" />
+<title>This is Home page</title>
+</head>
+<body>
+	<section>
+		<div class="container-fluid">
+			<div class="row">
+				<!-- side bar start -->
+				<th:block th:include="normal/side_bar :: side_bar"></th:block>
+				<!-- side bar start -->
+				
+				<div class="col-md-8 mt-2">
+				<h3 class=""> Add Sub - Sub Category</h3>
+					<div class="card">
+						<div class="card-body my-5">
+							<form>
+							
+								<div class="container-fluid">
+									<div class="row">
+										<div class="col-md-6">
+										Add Category 
+										 <select class="form-control">
+										 <option>Select</option>
+		     	                              <option  th:each="A:${reportSubCategory}" th:text="${A.catagoryname}" th:value="${A.catagoryname}" id="catagoryname" name="catagoryname" />
+										</select> 
+										</div>
+									<div class="col-md-6">
+										Sub Category 
+										 <select class="form-control">
+										 <option>Select</option>
+		                                   	<option  th:each="A:${reportSubCategory}" th:text="${A.subcatagoryname}" th:value="${A.subcatagoryname}" id="subcatagoryname" name="subcatagoryname" />
+										</select> 	
+									   </div> 
+									</div>
+									<div class="row">
+										<div class="col-md-6">
+										Sub-Sub Category <input type="text" class="form-control" name="subsubcatagoryname" id="subsubcatagoryname" placeholder="subCatagory" />
+										</div>
+									<div class="col-md-6">
+									</div> 
+									</div>
+									<div class="row mt-5">
+										<div class="col-md-4">
+												
+										</div>
+										<div class="col-md-3">
+											<button type="button" onclick="subsubcatagory()" class="btn btn-success">Add sub catagory</button>	
+									   </div>
+									   <div class="col-md-4">
+									   <button type="button"  class="btn btn-warning text-white" name="Reset" id="Reset"> Reset </button>
+											
+									   </div>
+									</div>
+								</div>
+								
+							</form>
+
+
+						</div>
+					</div>
+					
+					
+					<div class="card mt-2">
+					<div class="container">
+								<div class="row">
+								<button class="btn" onclick="ExportToExcel('xlsx')">Export table to excel</button>
+									<div class="col-md-12">
+										<table class="table table-responsive" id="myTable">
+											<thead class="text-center bg-primary text-light mt-1">
+												<th>Sr.</th>
+												<th> Category</th>
+												<th> Sub Category</th>
+												<th> Sub Sub Category</th>
+												<th> Deletes</th>
+											</thead>
+											<tbody class="text-center">
+											<tr th:each="A: ${SubsubCategoryService}">
+												<td th:text="${A.id}"></td>
+												<td th:text="${A.catagoryname}"></td>
+												<td th:text="${A.subcatagoryname}"></td>
+												<td th:text="${A.subsubcatagoryname}"></td>
+												<td><a th:href="@{/user/deleteSubsubcategory/{id}(id=${A.id})}"><button type="button" class="btn btn-danger">Delete</button></a></td>
+												
+											</tr>
+											</tbody>
+										</table>
+										
+									</div>
+								</div>
+								
+							</div>
+						</div>	
+				</div>
+			</div>
+		</div>
+<script>
+	function subsubcatagory()
+	{
+		
+		var catagoryname = document.getElementById("catagoryname").value;
+		var subcatagoryname = document.getElementById("subcatagoryname").value;
+		var subsubcatagoryname = document.getElementById("subsubcatagoryname").value;
+		$.ajax({
+			  type: "POST",
+			  url: "Addsubsubcatagory",
+			  data:{catagoryname:catagoryname,subcatagoryname:subcatagoryname,subsubcatagoryname:subsubcatagoryname},
+		      success: function(data){
+             alert("Succesfully Add sub catagory");
+             location.reload();
+		     },
+			  error: function (data) {
+				   alert(data);
+	                console.log('An error occurred.');
+	                console.log(data);
+	            },
+			});
+		
+	}
+</script>
+		<script>
+        $(document).ready(() => {
+          $(".item").removeClass("active");
+          $("#home-link").addClass("active");
+        });
+      </script>
+		<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+	</section>
+</body>
+</html>

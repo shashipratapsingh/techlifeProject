@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="normal/base::layout(~{::section})">
+<head>
+
+<meta charset="UTF-8" />
+<title>This is Home page</title>
+</head>
+<body>
+	<section>
+		<div class="container-fluid">
+			<div class="row">
+				<!-- side bar start -->
+				<th:block th:include="normal/side_bar :: side_bar"></th:block>
+				<!-- side bar start -->
+				<div class="col-md-8 mt-2">
+				<h3> Category</h3>
+					<div class="card">
+					
+						<div class="card-body mt-5">
+							<form>
+							   <div class="container-fluid">
+									<div class="row">
+										<div class="col-md-6">
+												Add Category<input type="text" class="form-control" name="addCatagory" id="addCatagory" placeholder="Add Catagory" />
+										</div>
+										
+									</div>
+									<div class="row mt-5">
+										<div class="col-md-4">
+												 
+										</div>
+										<div class="col-md-3">
+											<button type="button" th:onclick="addcatagory()" class="btn btn-success" name="addUnit" id="addUnit">Add catagory</button>	
+									   </div>
+									   <div class="col-md-4">
+									   <button type="button"  class="btn btn-warning" name="Reset" id="Reset"> Reset </button>
+											
+									   </div>
+									</div>
+								</div>
+								
+							</form>
+							
+							
+
+
+						</div>
+					</div>
+					<div class="card mt-2">
+					<div class="container">
+								<div class="row">
+								<button class="btn" onclick="ExportToExcel('xlsx')">Export table to excel</button>
+									<div class="col-md-12">
+										<table class="table table-responsive" id="myTable">
+											<thead>
+												<th>Sr.</th>
+												<th>Name of Category</th>
+												<th>Delete</th>
+											</thead>
+											<tbody>
+											<tr th:each="A: ${addcatagoryEntity}">
+												<td th:text="${A.id}"></td>
+												<td th:text="${A.addCatagory}"></td>
+												<td><a th:href="@{/user/addCategoryDelete/{id}(id=${A.id})}"><button class="btn btn-danger">Delete</button></a></td>
+																								   
+											</tr>
+											</tbody>
+										</table>
+										
+									</div>
+								</div>
+								
+							</div>
+						</div>	
+				</div>
+			</div>
+			<br><br>
+		</div>
+<script>
+	function addcatagory()
+	{
+		
+		var addCatagory = document.getElementById("addCatagory").value;
+	
+		var addUnit = document.getElementById("addUnit").value;
+		
+		$.ajax({
+			  type: "POST",
+			  url: "addcatagory",
+			  data:{addCatagory:addCatagory,addUnit:addUnit},
+		      success: function(data){
+             alert("You have succesfully ");
+             location.reload();
+		     },
+			  error: function (data) {
+				   alert(data);
+	                console.log('An error occurred.');
+	                console.log(data);
+	            },
+			});
+		
+	}
+</script>
+		<script>
+        $(document).ready(() => {
+          $(".item").removeClass("active");
+          $("#home-link").addClass("active");
+        });
+      </script>
+		<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+		<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+    <script type="text/javascript">
+    function ExportToExcel(type, fn, dl) {
+        var elt = document.getElementById('myTable');
+        rows = elt.rows;
+		
+        for (var i = 0; i < rows[0].cells.length; i++) {
+            var str = rows[0].cells[i].innerHTML;
+            if (str.search("Delete") != -1) {
+                for (var j = 0; j < rows.length; j++) {
+                    rows[j].deleteCell(i);
+                }
+               
+            }
+           
+        }
+        
+        
+        for (var p = 0; p < rows[0].cells.length; p++) {
+            var str1 = rows[0].cells[p].innerHTML;
+           
+                if (str1.search("Edit") != -1) {
+                    for (var j = 0; j < rows.length; j++) {
+                        rows[j].deleteCell(p);
+                    }
+                }
+            }
+        
+           
+
+        var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+        return dl ?
+          XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
+          XLSX.writeFile(wb, fn || ('ProjectMaster.' + (type || 'xlsx')));
+          location.reload();
+     }
+</script>
+	</section>
+	
+</body>
+</html>
